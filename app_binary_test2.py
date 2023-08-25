@@ -9,11 +9,11 @@ def load_model():
     # URLs to your model and config
     model_url = 'https://storage.googleapis.com/vino-verdict/models/sentiment-bert-binary.bin'
     response = requests.get(model_url)
-    open("model/pytorch_model.bin", "wb").write(response.content)
+    open("local_model/pytorch_model.bin", "wb").write(response.content)
     
     config_url = 'https://storage.googleapis.com/vino-verdict/models/sentiment-bert-binary.bin/sentiment-bert-binary-config.json'
     response = requests.get(config_url)
-    open("model/config.json", "wb").write(response.content)
+    open("local_model/config.json", "wb").write(response.content)
 
     MODEL_PATH = "model"
 
