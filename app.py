@@ -5,7 +5,6 @@ import numpy as np
 import os
 
 @st.cache_data
-@st.cache_data
 def load_model():
     # Create directory if it doesn't exist
     if not os.path.exists('local_model'):
