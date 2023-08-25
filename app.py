@@ -5,17 +5,24 @@ import numpy as np
 import os
 
 @st.cache_data
+@st.cache_data
 def load_model():
+    # Create directory if it doesn't exist
+    if not os.path.exists('local_model'):
+        os.makedirs('local_model')
+
     # URLs to your model and config
     url='https://storage.googleapis.com/vv-2/pytorch_model.bin'
     response = requests.get(url)
-    open("model/pytorch_model.bin", "wb").write(response.content)
+    with open("local_model/pytorch_model.bin", "wb") as f:
+        f.write(response.content)
     
     url='https://storage.googleapis.com/vv-2/config.json'
     response = requests.get(url)
-    open("model/config.json", "wb").write(response.content)
+    with open("local_model/config.json", "wb") as f:
+        f.write(response.content)
 
-    MODEL_PATH = "model"
+    MODEL_PATH = "local_model"
 
     # Load the model
     model = AutoModelForSequenceClassification.from_pretrained(MODEL_PATH)
