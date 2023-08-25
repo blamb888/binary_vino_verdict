@@ -7,12 +7,12 @@ import os
 @st.cache_data
 def load_model():
     # URLs to your model and config
-    model_url = 'https://storage.googleapis.com/vino-verdict/models/sentiment-bert-binary.bin'
-    response = requests.get(model_url)
+    url='https://storage.googleapis.com/vv-2/pytorch_model.bin'
+    response = requests.get(url)
     open("local_model/pytorch_model.bin", "wb").write(response.content)
     
-    config_url = 'https://storage.googleapis.com/vino-verdict/models/sentiment-bert-binary.bin/sentiment-bert-binary-config.json'
-    response = requests.get(config_url)
+    url='https://storage.googleapis.com/vv-2/config.json'
+    response = requests.get(url)
     open("local_model/config.json", "wb").write(response.content)
 
     MODEL_PATH = "local_model"
