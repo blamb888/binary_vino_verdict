@@ -15,7 +15,7 @@ def load_model():
     response = requests.get(url)
     open("model/config.json", "wb").write(response.content)
 
-    MODEL_PATH = "local_model"
+    MODEL_PATH = "model"
 
     # Load the model
     model = AutoModelForSequenceClassification.from_pretrained(MODEL_PATH)
