@@ -1,29 +1,28 @@
 import streamlit as st
+import requests
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
-from st_files_connection import FilesConnection
 import numpy as np
 import os
-import json
 
 @st.cache_data
 def load_model():
-    # Create a FilesConnection object
-    conn = st.experimental_connection('gcs', type=FilesConnection)
-
-    # Assuming your model files are in a bucket named 'vino-verdict' in a folder called 'models'
-    model_data = conn.read("vino-verdict/models/sentiment-bert-binary.bin")
-    config_data = conn.read("vino-verdict/models/sentiment-bert-binary-config.json")
+    # URLs to your model and config
+    model_url = 'https://storage.googleapis.com/vino-verdict/models/sentiment-bert-binary.bin'
+    config_url = 'https://storage.googleapis.com/vino-verdict/models/sentiment-bert-binary.bin/sentiment-bert-binary-config.json'
 
     # Create a local directory to store the model and config
     local_model_dir = './local_model'
     os.makedirs(local_model_dir, exist_ok=True)
 
-    # Save the downloaded model and config to local directory
+    # Download and save model
+    model_response = requests.get(model_url)
     with open(f"{local_model_dir}/pytorch_model.bin", 'wb') as f:
-        f.write(model_data.read())
+        f.write(model_response.content)
 
-    with open(f"{local_model_dir}/config.json", 'w') as f:
-        json.dump(json.loads(config_data.read().decode('utf-8')), f)
+    # Download and save config
+    config_response = requests.get(config_url)
+    with open(f"{local_model_dir}/config.json", 'wb') as f:
+        f.write(config_response.content)
 
     # Load the model
     model = AutoModelForSequenceClassification.from_pretrained(local_model_dir)
