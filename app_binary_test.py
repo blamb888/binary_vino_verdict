@@ -3,7 +3,6 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from google.cloud import storage
 import numpy as np
 import os
-import torch
 import json
 
 @st.cache_data
