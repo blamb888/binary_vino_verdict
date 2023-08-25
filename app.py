@@ -9,11 +9,11 @@ def load_model():
     # URLs to your model and config
     url='https://storage.googleapis.com/vv-2/pytorch_model.bin'
     response = requests.get(url)
-    open("local_model/pytorch_model.bin", "wb").write(response.content)
+    open("model/pytorch_model.bin", "wb").write(response.content)
     
     url='https://storage.googleapis.com/vv-2/config.json'
     response = requests.get(url)
-    open("local_model/config.json", "wb").write(response.content)
+    open("model/config.json", "wb").write(response.content)
 
     MODEL_PATH = "local_model"
 
