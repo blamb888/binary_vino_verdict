@@ -3,3 +3,5 @@ transformers
 numpy
 google-cloud-storage
 torch
+gcsfs
+git+https://github.com/streamlit/files-connection
