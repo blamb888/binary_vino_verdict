@@ -2,4 +2,3 @@ streamlit
 transformers
 numpy
 google-cloud-storage
-json
