@@ -3,14 +3,6 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from google.cloud import storage
 import numpy as np
 import os
-import json
-
-if "GCP_CREDENTIALS" in st.secrets:
-    credentials = json.loads(st.secrets["GCP_CREDENTIALS"])
-    with open("google-credentials.json", "w") as f:
-        json.dump(credentials, f)
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "google-credentials.json"
-
 
 @st.cache_data
 def load_model():
