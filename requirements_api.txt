@@ -1,0 +1,6 @@
+fastapi
+numpy
+transformers
+google-cloud-storage
+uvicorn
+torch

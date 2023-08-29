@@ -16,6 +16,9 @@ pytest:
 install_requirements:
 	@pip install -r requirements.txt
 
+install_requirements_api:
+	@pip install -r requirements_api.txt
+
 # ----------------------------------
 #         HEROKU COMMANDS
 # ----------------------------------
@@ -38,3 +41,9 @@ clean:
 	@rm -fr *.dist-info
 	@rm -fr *.egg-info
 	-@rm model.joblib
+
+# ----------------------------------
+#    FASTAPI COMMANDS
+# ----------------------------------
+run_api:
+	@uvicorn api.api:app --reload
