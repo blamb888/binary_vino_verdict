@@ -11,7 +11,7 @@ def load_model():
         os.makedirs('local_model')
 
     # URLs to your model and config
-    url='https://storage.googleapis.com/vv-2/pytorch_model.bin'
+    url='https://vino-api-v2-766cav374q-an.a.run.app/predict'
     response = requests.get(url)
     with open("local_model/pytorch_model.bin", "wb") as f:
         f.write(response.content)
@@ -39,7 +39,7 @@ def convert_to_2_scale(arr):
     return np.array(arr_2_scale)
 
 # Load the cached model
-model = load_model()
+# model = load_model()
 
 # Load the tokenizer
 tokenizer = AutoTokenizer.from_pretrained('nlptown/bert-base-multilingual-uncased-sentiment')
@@ -50,14 +50,11 @@ st.title('Binary Wine Sentiment Analysis')
 
 user_input = st.text_area("Enter the review of the wine:")
 if st.button('Predict'):
-    inputs = tokenizer(user_input, return_tensors="pt", padding=True, truncation=True)
-    outputs = model(**inputs)
-    logits = outputs.logits.detach().cpu().numpy()
-    predicted_classes = np.argmax(logits, axis=1)
-    predicted_classes_2_scale = convert_to_2_scale(predicted_classes)  # convert to 2 scale
-    
-    verdict = 'good' if predicted_classes_2_scale[0] else 'bad'
-
+    # inputs = tokenizer(user_input, return_tensors="pt", padding=True, truncation=True)
+    # URLs to your model and config
+    url=f'https://vino-api-v2-766cav374q-an.a.run.app/predict?review={user_input}'
+    response = requests.get(url)
+    verdict = response.json()['verdict']
     if verdict == 'good':
         st.markdown(f"<h1 style='text-align: center; color: green;'>This wine is: {verdict.upper()}</h1>", unsafe_allow_html=True)
         st.image("images/great_wine_wave.png", use_column_width=True)
