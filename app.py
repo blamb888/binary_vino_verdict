@@ -10,8 +10,6 @@ st.title('Binary Wine Sentiment Analysis')
 
 user_input = st.text_area("Enter the review of the wine:")
 if st.button('Predict'):
-    # inputs = tokenizer(user_input, return_tensors="pt", padding=True, truncation=True)
-    # URLs to your model and config
     url=f'https://vino-api-v2-766cav374q-an.a.run.app/predict?review={user_input}'
     response = requests.get(url)
     verdict = response.json()['verdict']
